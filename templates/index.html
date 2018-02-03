@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Damper Control</title>
+    <link rel="stylesheet" href="/static/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
-    <script src="./src/static/bower_components/react/react.development.js"></script>
-    <script src="./src/static/bower_components/react/react-dom.development.js"></script>
-    <script src="./src/static/js/libraries/jquery-3.2.1.js"></script>
+    <script src="/static/jquery-3.2.1.js"></script>
     <style>
         #PositionTable {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -33,10 +32,12 @@
 
     function refresh_positions(){
 	$.getJSON('/refresh_positions', function(data) {
-	    var output = '<h1>Positions</h1>'
+	    var output = '<h1>Positions</h1><table>'
 	    output += '<th>Room</th><th>Position</th>'
-	    $.each(data["output_items"], function(key,val){
-		    output += '<tr><td>' + val.room + '</td><td>' + val.value + '</td></tr>'
+	    $.each(data["positions"], function(key,val){
+		    output += '<tr><td>' + val.room + '</td><td>' + val.value + '</td>'
+		    output += '<td><button id="open' + val.room + '" onclick="open' + val.room + '()">Open</button></td>'
+		    output += '<td><button id="close'+val.room + '" onclick="close' + val.room + '()">Close</button></td>'
 	    });
         output += '</table>'
 	    $('#PositionTable').html(output);
@@ -44,6 +45,22 @@
     }
 
     refresh_positions()
+    function opengameroom(){
+	$.getJSON('/open_game_room', function(data){});
+	refresh_positions()
+    }
+    function openmaster(){
+    	$.getJSON('/open_master', function(data){});
+	refresh_positions()
+    }
+    function closegameroom(){
+	$.getJSON('/close_game_room', function(data){});
+	refresh_positions()
+    }
+    function closemaster(){
+	$.getJSON('/close_master', function(data){});
+	refresh_positions()
+    }
 
 
 </script>

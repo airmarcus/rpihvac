@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect
+import os
 import fileinterface
+
 app = Flask(__name__)
 import movedampers
 
@@ -25,6 +27,7 @@ def close_master():
 
 @app.route("/refresh_positions")
 def refresh_positions():
+    print(jsonify(positions = fileinterface.getallpositions()))
     return jsonify(positions = fileinterface.getallpositions())
 
 if __name__== '__main__':

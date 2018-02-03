@@ -6,5 +6,27 @@
 </head>
 <body>
     This is the control center
+<div id="PositionTable"></div>
 </body>
+
+<script>
+
+
+
+    function refresh_positions(){
+	$.getJSON('/refresh_positions', function(data) {
+	    var output = '<h1>Positions</h1>'
+	    output += '<th>Room</th><th>Position</th>'
+	    $.each(data["output_items"], function(key,val){
+		    output += '<tr><td>' + val.room + '</td><td>' + val.value + '</td></tr>'
+	    });
+        output += '</table>'
+	    $('#PositionTable').html(output);
+	    });
+    }
+
+    refresh_positions()
+
+
+</script>
 </html>

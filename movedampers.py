@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 import fileinterface
 import sys
 
-args = sys.argv
-print("Moving" + args[1] + ":" + args[2])
+# args = sys.argv
+# print("Moving" + args[1] + ":" + args[2])
 
 MasterStepPinForward = 13
 MasterStepPinBackward = 15
@@ -48,4 +48,4 @@ def move(room, position):
     print(str(pin)+' ' + str(runtime))
     makemove(pin,runtime)
 
-move(args[1],int(args[2]))
+# move(args[1],int(args[2]))
